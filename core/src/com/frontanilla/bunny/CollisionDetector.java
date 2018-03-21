@@ -1,8 +1,6 @@
-package com.frontanilla.tanks;
+package com.frontanilla.bunny;
 
 import com.badlogic.gdx.utils.DelayedRemovalArray;
-
-import java.util.ArrayList;
 
 public class CollisionDetector {
 

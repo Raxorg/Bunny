@@ -1,4 +1,4 @@
-package com.frontanilla.tanks;
+package com.frontanilla.bunny;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;

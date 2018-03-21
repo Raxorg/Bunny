@@ -1,4 +1,4 @@
-package com.frontanilla.tanks;
+package com.frontanilla.bunny;
 
 import android.os.Bundle;
 

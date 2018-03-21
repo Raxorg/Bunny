@@ -1,4 +1,4 @@
-package com.frontanilla.tanks;
+package com.frontanilla.bunny;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
