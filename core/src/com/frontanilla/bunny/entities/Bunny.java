@@ -1,6 +1,7 @@
-package com.frontanilla.bunny;
+package com.frontanilla.bunny.entities;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -11,22 +12,25 @@ public class Bunny extends Collidable {
 
     private float x, y;
     private Vector2 velocity;
-    private Texture texture;
-    boolean jumping, movingLeft, movingRight;
+    boolean jumping, aPressed, dPressed, facingLeft;
 
     public Bunny() {
-        super(new Rectangle(0, 0, 14 * 5, 13 * 5));
+        super(
+                new Rectangle(0, 0, 50, 50),
+                new Texture(Gdx.files.internal("bunny2.png"))
+        );
         velocity = new Vector2();
-        texture = new Texture(Gdx.files.internal("bunny.png"));
         jumping = false;
     }
 
     public Bunny(float x, float y) {
-        super(new Rectangle((int) x, (int) y, 14 * 5, 13 * 5));
+        super(
+                new Rectangle((int) x, (int) y, 50, 50),
+                new Texture(Gdx.files.internal("bunny2.png"))
+        );
         this.x = x;
         this.y = y;
         velocity = new Vector2();
-        texture = new Texture(Gdx.files.internal("bunny.png"));
         jumping = true;
     }
 
@@ -56,22 +60,23 @@ public class Bunny extends Collidable {
     }
 
     public void render(SpriteBatch batch) {
+        batch.setColor(Color.WHITE);
         batch.draw(
                 texture,
                 x,
                 y,
                 texture.getWidth() / 2,
                 texture.getHeight() / 2,
-                texture.getWidth() * 5,
-                texture.getHeight() * 5,
+                50,
+                50,
                 1,
                 1,
                 0,
                 0,
                 0,
-                14,
-                13,
-                movingRight,
+                texture.getWidth(),
+                texture.getHeight(),
+                facingLeft,
                 false
         );
         // TextureRegion region, float x, float y, float originX, float originY, float width, float height,
@@ -83,38 +88,42 @@ public class Bunny extends Collidable {
     }
 
     public void aDown() {
-        if (movingRight) {
+        if (dPressed) {
             velocity.x = 0;
         } else {
             velocity.x = -5;
         }
-        movingLeft = true;
+        aPressed = true;
+        facingLeft = true;
     }
 
     public void aUp() {
-        if (movingRight) {
+        if (dPressed) {
             velocity.x = 5;
+            facingLeft = false;
         } else {
             velocity.x = 0;
         }
-        movingLeft = false;
+        aPressed = false;
     }
 
     public void dDown() {
-        if (movingLeft) {
+        if (aPressed) {
             velocity.x = 0;
         } else {
             velocity.x = 5;
         }
-        movingRight = true;
+        dPressed = true;
+        facingLeft = false;
     }
 
     public void dUp() {
-        if (movingLeft) {
+        if (aPressed) {
             velocity.x = -5;
+            facingLeft = true;
         } else {
             velocity.x = 0;
         }
-        movingRight = false;
+        dPressed = false;
     }
 }

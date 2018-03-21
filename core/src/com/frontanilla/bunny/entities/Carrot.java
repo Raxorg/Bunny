@@ -1,4 +1,4 @@
-package com.frontanilla.bunny;
+package com.frontanilla.bunny.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,13 +9,14 @@ import java.awt.Rectangle;
 public class Carrot extends Collidable {
 
     private float x, y;
-    private Texture texture;
 
     public Carrot(float x, float y) {
-        super(new Rectangle((int) x, (int) y, 14 * 5, 13 * 5));
+        super(
+                new Rectangle((int) x, (int) y, 14 * 5, 13 * 5),
+                new Texture(Gdx.files.internal("carrot.png"))
+        );
         this.x = x;
         this.y = y;
-        texture = new Texture(Gdx.files.internal("carrot.png"));
     }
 
     public void update() {

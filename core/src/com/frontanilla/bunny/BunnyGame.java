@@ -6,12 +6,18 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.frontanilla.bunny.effects.Rain;
+import com.frontanilla.bunny.entities.EntityObserver;
+import com.frontanilla.bunny.helpers.InputManager;
+import com.frontanilla.bunny.hud.Lives;
 
 public class BunnyGame extends Game {
 
     private SpriteBatch batch;
     private EntityObserver observer;
-    public Texture pixel, ground;
+    private Texture pixel, ground;
+    private Rain rain;
+    private Lives lives;
 
     @Override
     public void create() {
@@ -22,6 +28,9 @@ public class BunnyGame extends Game {
 
         pixel = new Texture("pixel.jpg");
         ground = new Texture("ground.png");
+
+        rain = new Rain();
+        lives = new Lives();
     }
 
     @Override
@@ -30,6 +39,20 @@ public class BunnyGame extends Game {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
+
+        renderGround();
+        renderSky();
+
+        lives.render(batch);
+        rain.render(batch);
+
+        observer.update();
+        observer.render(batch);
+
+        batch.end();
+    }
+
+    private void renderGround() {
         batch.setColor(Color.WHITE);
         for (int i = 0; i < 4; i++) {
             batch.draw(
@@ -40,6 +63,9 @@ public class BunnyGame extends Game {
                     Gdx.graphics.getHeight() * 0.2f
             );
         }
+    }
+
+    private void renderSky() {
         batch.setColor(Color.CYAN);
         batch.draw(
                 pixel,
@@ -48,12 +74,6 @@ public class BunnyGame extends Game {
                 Gdx.graphics.getWidth(),
                 Gdx.graphics.getHeight() * 0.8f
         );
-        batch.setColor(Color.WHITE);
-
-        observer.update();
-        observer.render(batch);
-
-        batch.end();
     }
 
     @Override

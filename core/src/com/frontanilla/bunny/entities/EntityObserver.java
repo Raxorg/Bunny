@@ -1,9 +1,10 @@
-package com.frontanilla.bunny;
+package com.frontanilla.bunny.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.DelayedRemovalArray;
+import com.frontanilla.bunny.helpers.CollisionDetector;
 
 import java.util.Random;
 
@@ -27,7 +28,7 @@ public class EntityObserver {
         collisionDetector.updateCarrots(carrots);
 
         font = new BitmapFont();
-        font.getData().scale(3);
+        font.getData().scale(2);
 
         random = new Random();
     }
@@ -57,8 +58,8 @@ public class EntityObserver {
         font.draw(
                 batch,
                 "" + score,
-                25,
-                Gdx.graphics.getHeight() - 25
+                5,
+                Gdx.graphics.getHeight() - 50
         );
     }
 

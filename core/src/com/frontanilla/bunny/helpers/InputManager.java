@@ -1,7 +1,8 @@
-package com.frontanilla.bunny;
+package com.frontanilla.bunny.helpers;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
+import com.frontanilla.bunny.BunnyGame;
 
 public class InputManager extends InputAdapter {
 

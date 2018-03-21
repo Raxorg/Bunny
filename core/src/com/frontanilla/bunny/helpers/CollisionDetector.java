@@ -1,6 +1,8 @@
-package com.frontanilla.bunny;
+package com.frontanilla.bunny.helpers;
 
 import com.badlogic.gdx.utils.DelayedRemovalArray;
+import com.frontanilla.bunny.entities.Bunny;
+import com.frontanilla.bunny.entities.Carrot;
 
 public class CollisionDetector {
 
