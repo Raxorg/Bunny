@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.frontanilla.bunny.effects.Rain;
 import com.frontanilla.bunny.entities.EntityObserver;
+import com.frontanilla.bunny.helpers.Constants;
 import com.frontanilla.bunny.helpers.InputManager;
 import com.frontanilla.bunny.hud.Lives;
 
@@ -21,6 +22,8 @@ public class BunnyGame extends Game {
 
     @Override
     public void create() {
+        Constants.init();
+
         batch = new SpriteBatch();
         Gdx.input.setInputProcessor(new InputManager(this));
 
@@ -60,7 +63,7 @@ public class BunnyGame extends Game {
                     i * Gdx.graphics.getWidth() / 4,
                     0,
                     Gdx.graphics.getWidth() / 4,
-                    Gdx.graphics.getHeight() * 0.2f
+                    Constants.GROUND_HEIGHT
             );
         }
     }
@@ -70,9 +73,9 @@ public class BunnyGame extends Game {
         batch.draw(
                 pixel,
                 0,
-                Gdx.graphics.getHeight() * 0.2f,
+                Constants.GROUND_HEIGHT,
                 Gdx.graphics.getWidth(),
-                Gdx.graphics.getHeight() * 0.8f
+                Gdx.graphics.getHeight() - Constants.GROUND_HEIGHT
         );
     }
 

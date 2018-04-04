@@ -7,15 +7,15 @@ import java.awt.Rectangle;
 
 public abstract class Collidable {
 
-    protected Rectangle collisionBox;
+    protected Rectangle bounds;
     protected Texture texture;
 
-    public Collidable(Rectangle collisionBox, Texture texture) {
-        this.collisionBox = collisionBox;
+    public Collidable(Rectangle bounds, Texture texture) {
+        this.bounds = bounds;
         this.texture = texture;
     }
 
     protected boolean collides(Collidable other) {
-        return collisionBox.intersects(other.collisionBox);
+        return bounds.intersects(other.bounds);
     }
 }

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.DelayedRemovalArray;
 import com.frontanilla.bunny.helpers.CollisionDetector;
+import com.frontanilla.bunny.helpers.Constants;
 
 import java.util.Random;
 
@@ -20,7 +21,7 @@ public class EntityObserver {
     private Random random;
 
     public EntityObserver() {
-        bunny = new Bunny(100, 100);
+        bunny = new Bunny(100, 300);
         carrots = new DelayedRemovalArray<>();
 
         collisionDetector = new CollisionDetector();
@@ -39,6 +40,7 @@ public class EntityObserver {
             if (bunny.collides(c)) {
                 carrots.removeValue(c, true);
                 score += 4;
+                bunny.eatCarrot();
             }
         }
         carrots.end();
@@ -70,8 +72,12 @@ public class EntityObserver {
         }
     }
 
+    // TODO Stam PLAY
     public void addCarrot() {
-        carrots.add(new Carrot(random.nextFloat() * (Gdx.graphics.getWidth() - 14 * 5), 75));
+        carrots.add(new Carrot(
+                random.nextFloat() * (Gdx.graphics.getWidth() - 14 * 5),
+                Constants.GROUND_HEIGHT - 6.5f * 5
+        ));
         collisionDetector.updateCarrots(carrots);
     }
 

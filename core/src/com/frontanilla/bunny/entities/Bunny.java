@@ -1,10 +1,13 @@
 package com.frontanilla.bunny.entities;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.frontanilla.bunny.helpers.Constants;
 
 import java.awt.Rectangle;
 
@@ -12,7 +15,10 @@ public class Bunny extends Collidable {
 
     private float x, y;
     private Vector2 velocity;
-    boolean jumping, aPressed, dPressed, facingLeft;
+    private boolean jumping, aPressed, dPressed, facingLeft;
+    private Animation<Texture> animation;
+    private float time;
+    private Sound eatCarrot;
 
     public Bunny() {
         super(
@@ -32,6 +38,18 @@ public class Bunny extends Collidable {
         this.y = y;
         velocity = new Vector2();
         jumping = true;
+        eatCarrot = Gdx.audio.newSound(Gdx.files.internal("bunny/carrot.mp3"));
+        createAnimation();
+    }
+
+    private void createAnimation() {
+        Texture[] walkingFrames = new Texture[4];
+        walkingFrames[0] = new Texture("bunny/bunny_walk_1.png");
+        walkingFrames[1] = new Texture("bunny/bunny_walk_2.png");
+        walkingFrames[2] = new Texture("bunny/bunny_walk_3.png");
+        walkingFrames[3] = new Texture("bunny/bunny_walk_4.png");
+        animation = new Animation<Texture>(0.1f, walkingFrames);
+        time = 0f;
     }
 
     public void jump() {
@@ -43,10 +61,12 @@ public class Bunny extends Collidable {
     }
 
     public void update() {
+        time += Gdx.graphics.getDeltaTime();
+
         if (jumping) {
             velocity.y -= 0.8f;
-            if (y <= 0) {
-                y = 0;
+            if (y <= Constants.GROUND_HEIGHT) {
+                y = Constants.GROUND_HEIGHT;
                 velocity.y = 0;
                 jumping = false;
             }
@@ -55,14 +75,15 @@ public class Bunny extends Collidable {
         x += velocity.x;
         y += velocity.y;
 
-        collisionBox.x = (int) x;
-        collisionBox.y = (int) y;
+        bounds.x = (int) x;
+        bounds.y = (int) y;
     }
 
     public void render(SpriteBatch batch) {
         batch.setColor(Color.WHITE);
+        Texture currentFrame = animation.getKeyFrame(time, true);
         batch.draw(
-                texture,
+                currentFrame,
                 x,
                 y,
                 texture.getWidth() / 2,
@@ -125,5 +146,9 @@ public class Bunny extends Collidable {
             velocity.x = 0;
         }
         dPressed = false;
+    }
+
+    public void eatCarrot() {
+        eatCarrot.play();
     }
 }
