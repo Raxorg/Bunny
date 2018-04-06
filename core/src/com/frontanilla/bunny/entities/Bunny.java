@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.frontanilla.bunny.helpers.Constants;
 
 import java.awt.Rectangle;
+import java.util.Random;
 
 public class Bunny extends Collidable {
 
@@ -18,7 +19,7 @@ public class Bunny extends Collidable {
     private boolean jumping, aPressed, dPressed, facingLeft;
     private Animation<Texture> animation;
     private float time;
-    private Sound eatCarrot;
+    private Sound eatCarrot1, eatCarrot2;
 
     public Bunny() {
         super(
@@ -38,7 +39,8 @@ public class Bunny extends Collidable {
         this.y = y;
         velocity = new Vector2();
         jumping = true;
-        eatCarrot = Gdx.audio.newSound(Gdx.files.internal("bunny/carrot.mp3"));
+        eatCarrot1 = Gdx.audio.newSound(Gdx.files.internal("bunny/carrot1.mp3"));
+        eatCarrot2 = Gdx.audio.newSound(Gdx.files.internal("bunny/carrot2.mp3"));
         createAnimation();
     }
 
@@ -82,6 +84,9 @@ public class Bunny extends Collidable {
     public void render(SpriteBatch batch) {
         batch.setColor(Color.WHITE);
         Texture currentFrame = animation.getKeyFrame(time, true);
+        if(velocity.x == 0) {
+            currentFrame = animation.getKeyFrame(0, true);
+        }
         batch.draw(
                 currentFrame,
                 x,
@@ -149,6 +154,11 @@ public class Bunny extends Collidable {
     }
 
     public void eatCarrot() {
-        eatCarrot.play();
+        Random random = new Random();
+        if (random.nextBoolean()) {
+            eatCarrot1.play();
+        } else {
+            eatCarrot2.play();
+        }
     }
 }
