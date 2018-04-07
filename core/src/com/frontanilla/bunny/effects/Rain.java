@@ -1,33 +1,40 @@
 package com.frontanilla.bunny.effects;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.frontanilla.bunny.entities.Drop;
+import com.badlogic.gdx.math.Rectangle;
+import com.frontanilla.bunny.entities.RainElement;
 
-import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Rain {
 
-    private ArrayList<Drop> drops;
+    private ArrayList<RainElement> rainElements;
     private Random random;
 
-    public Rain() {
-        drops = new ArrayList<>();
+    public Rain(float xSize, float ySize, float xModifier, Texture texture) {
+        rainElements = new ArrayList<>();
         random = new Random();
         for (int i = 0; i < 300; i++) {
-            drops.add(new Drop(new Rectangle(
-                    random.nextInt(Gdx.graphics.getWidth()),
-                    random.nextInt(Gdx.graphics.getHeight()),
-                    10,
-                    30
-            )));
+            rainElements.add(new RainElement(
+                    new Rectangle(
+                            random.nextInt(Gdx.graphics.getWidth()),
+                            random.nextInt(Gdx.graphics.getHeight()),
+                            xSize,
+                            ySize
+                    ),
+                    xSize,
+                    ySize,
+                    xModifier,
+                    texture
+            ));
         }
     }
 
     public void render(SpriteBatch batch) {
-        for (Drop d : drops) {
+        for (RainElement d : rainElements) {
             d.update();
             d.render(batch);
         }

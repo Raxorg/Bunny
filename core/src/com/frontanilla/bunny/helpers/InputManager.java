@@ -2,30 +2,30 @@ package com.frontanilla.bunny.helpers;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
-import com.frontanilla.bunny.BunnyGame;
+import com.frontanilla.bunny.BunnyWorldStuff;
 
 public class InputManager extends InputAdapter {
 
-    private BunnyGame bunnyGame;
+    private BunnyWorldStuff bunnyWorldStuff;
 
-    public InputManager(BunnyGame bunnyGame) {
-        this.bunnyGame = bunnyGame;
+    public InputManager(BunnyWorldStuff bunnyWorldStuff) {
+        this.bunnyWorldStuff = bunnyWorldStuff;
     }
 
     @Override
     public boolean keyDown(int keycode) {
         switch (keycode) {
             case Input.Keys.SPACE:
-                bunnyGame.spacePressed();
+                bunnyWorldStuff.spacePressed();
                 break;
             case Input.Keys.W:
-                bunnyGame.wDown();
+                bunnyWorldStuff.wDown();
                 break;
             case Input.Keys.A:
-                bunnyGame.aDown();
+                bunnyWorldStuff.aDown();
                 break;
             case Input.Keys.D:
-                bunnyGame.dDown();
+                bunnyWorldStuff.dDown();
                 break;
         }
         return true;
@@ -35,10 +35,10 @@ public class InputManager extends InputAdapter {
     public boolean keyUp(int keycode) {
         switch (keycode) {
             case Input.Keys.A:
-                bunnyGame.aUp();
+                bunnyWorldStuff.aUp();
                 break;
             case Input.Keys.D:
-                bunnyGame.dUp();
+                bunnyWorldStuff.dUp();
                 break;
         }
         return true;

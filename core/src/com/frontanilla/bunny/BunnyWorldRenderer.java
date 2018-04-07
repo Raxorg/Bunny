@@ -1,58 +1,58 @@
 package com.frontanilla.bunny;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.frontanilla.bunny.effects.Rain;
-import com.frontanilla.bunny.entities.EntityObserver;
+import com.frontanilla.bunny.entities.Carrot;
 import com.frontanilla.bunny.helpers.Constants;
-import com.frontanilla.bunny.helpers.InputManager;
-import com.frontanilla.bunny.hud.Lives;
 
-public class BunnyGame extends Game {
+public class BunnyWorldRenderer {
 
+    private BunnyWorldStuff stuff;
     private SpriteBatch batch;
-    private EntityObserver observer;
     private Texture pixel, ground;
-    private Rain rain;
-    private Lives lives;
+    private BitmapFont font;
 
-    @Override
-    public void create() {
-        Constants.init();
-
+    public BunnyWorldRenderer(BunnyWorldStuff stuff) {
+        this.stuff = stuff;
         batch = new SpriteBatch();
-        Gdx.input.setInputProcessor(new InputManager(this));
-
-        observer = new EntityObserver();
-
         pixel = new Texture("pixel.jpg");
         ground = new Texture("ground.png");
-
-        rain = new Rain();
-        lives = new Lives();
+        font = new BitmapFont();
+        font.getData().scale(2);
     }
 
-    @Override
     public void render() {
-        Gdx.gl.glClearColor(1, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
         batch.begin();
 
         renderGround();
         renderSky();
 
-        lives.render(batch);
-        rain.render(batch);
-
-        observer.update();
-        observer.render(batch);
+        stuff.getLives().render(batch);
+        stuff.getWaterRain().render(batch);
+        stuff.getMeteoriteRain().render(batch);
+        stuff.getBunny().render(batch);
+        renderCarrots();
+        renderScore();
 
         batch.end();
+    }
+
+    private void renderScore() {
+        font.draw(
+                batch,
+                "" + stuff.getScore(),
+                5,
+                Gdx.graphics.getHeight() - 50
+        );
+    }
+
+    private void renderCarrots() {
+        for (Carrot c : stuff.getCarrots()) {
+            c.render(batch);
+        }
     }
 
     private void renderGround() {
@@ -79,33 +79,7 @@ public class BunnyGame extends Game {
         );
     }
 
-    @Override
     public void dispose() {
         batch.dispose();
-        observer.dispose();
-    }
-
-    public void spacePressed() {
-        observer.addCarrot();
-    }
-
-    public void aDown() {
-        observer.aDown();
-    }
-
-    public void aUp() {
-        observer.aUp();
-    }
-
-    public void dUp() {
-        observer.dUp();
-    }
-
-    public void dDown() {
-        observer.dDown();
-    }
-
-    public void wDown() {
-        observer.wDown();
     }
 }

@@ -3,34 +3,37 @@ package com.frontanilla.bunny.entities;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 
-import java.awt.Rectangle;
 import java.util.Random;
 
-public class Drop extends Collidable {
+public class RainElement extends Collidable {
 
-    Random random;
-    private int speed;
+    private Random random;
+    private float speed, xSize, ySize, xModifier;
 
-    public Drop(Rectangle collisionBox) {
-        super(collisionBox, new Texture(Gdx.files.internal("drop.png")));
+    public RainElement(Rectangle collisionBox, float xSize, float ySize, float xModifier, Texture texture) {
+        super(collisionBox, texture);
         random = new Random();
         speed = 4 + random.nextInt(5);
+        this.xSize = xSize;
+        this.ySize = ySize;
+        this.xModifier = xModifier;
     }
 
     public void update() {
         if (bounds.x + bounds.width < 0 || bounds.y + bounds.height < 0) {
-            bounds.setBounds(
+            bounds.set(
                     random.nextInt(Gdx.graphics.getWidth() * 2),
                     Gdx.graphics.getHeight(),
-                    10,
-                    30
+                    xSize,
+                    ySize
             );
 
             speed = 4 + random.nextInt(5);
         }
-        bounds.setBounds(
-                bounds.x - speed / 2,
+        bounds.set(
+                bounds.x - speed * xModifier,
                 bounds.y - speed,
                 bounds.width,
                 bounds.height

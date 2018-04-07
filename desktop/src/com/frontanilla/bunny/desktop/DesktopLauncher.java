@@ -2,7 +2,7 @@ package com.frontanilla.bunny.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.frontanilla.bunny.BunnyGame;
+import com.frontanilla.bunny.BunnyWorldStuff;
 
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -19,6 +19,6 @@ public class DesktopLauncher {
         config.height = height;
         config.fullscreen = true;
 
-        new LwjglApplication(new BunnyGame(), config);
+        new LwjglApplication(new BunnyWorldStuff(), config);
     }
 }

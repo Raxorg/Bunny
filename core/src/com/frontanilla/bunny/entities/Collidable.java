@@ -2,8 +2,7 @@ package com.frontanilla.bunny.entities;
 
 
 import com.badlogic.gdx.graphics.Texture;
-
-import java.awt.Rectangle;
+import com.badlogic.gdx.math.Rectangle;
 
 public abstract class Collidable {
 
@@ -15,7 +14,7 @@ public abstract class Collidable {
         this.texture = texture;
     }
 
-    protected boolean collides(Collidable other) {
-        return bounds.intersects(other.bounds);
+    public boolean collides(Collidable other) {
+        return bounds.overlaps(other.bounds);
     }
 }
