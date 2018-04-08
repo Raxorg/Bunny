@@ -23,6 +23,9 @@ public class BunnyWorldStuff extends Game {
 
     @Override
     public void create() {
+        observer = new BunnyWorldObserver(this);
+        renderer = new BunnyWorldRenderer(this);
+
         carrots = new DelayedRemovalArray<>();
         Constants.init();
 
@@ -33,8 +36,7 @@ public class BunnyWorldStuff extends Game {
         meteoriteRain = new Rain(30, 60, 0, new Texture(Gdx.files.internal("meteorite.png")));
         lives = new Lives();
 
-        observer = new BunnyWorldObserver(this);
-        renderer = new BunnyWorldRenderer(this);
+        observer.init();
     }
 
     @Override

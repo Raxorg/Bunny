@@ -17,10 +17,13 @@ public class BunnyWorldObserver {
     public BunnyWorldObserver(BunnyWorldStuff stuff) {
         this.stuff = stuff;
         collisionDetector = new CollisionDetector();
-        collisionDetector.updateBunny(stuff.getBunny());
-        collisionDetector.updateCarrots(stuff.getCarrots());
         score = 0;
         random = new Random();
+    }
+
+    public void init() {
+        collisionDetector.updateBunny(stuff.getBunny());
+        collisionDetector.updateCarrots(stuff.getCarrots());
     }
 
     public void update() {
