@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.frontanilla.bunny.BunnyWorldStuff;
 
 public class Lives {
 
@@ -31,5 +32,13 @@ public class Lives {
                     size
             );
         }
+    }
+
+    public void damage() {
+        quantity--;
+    }
+
+    public int getQuantity() {
+        return quantity;
     }
 }

@@ -50,7 +50,7 @@ public class Bunny extends Collidable {
         walkingFrames[1] = new Texture("bunny/bunny_walk_2.png");
         walkingFrames[2] = new Texture("bunny/bunny_walk_3.png");
         walkingFrames[3] = new Texture("bunny/bunny_walk_4.png");
-        animation = new Animation<Texture>(0.1f, walkingFrames);
+        animation = new Animation<>(0.1f, walkingFrames);
         time = 0f;
     }
 
@@ -84,7 +84,7 @@ public class Bunny extends Collidable {
     public void render(SpriteBatch batch) {
         batch.setColor(Color.WHITE);
         Texture currentFrame = animation.getKeyFrame(time, true);
-        if(velocity.x == 0) {
+        if (velocity.x == 0) {
             currentFrame = animation.getKeyFrame(0, true);
         }
         batch.draw(
@@ -160,5 +160,9 @@ public class Bunny extends Collidable {
         } else {
             eatCarrot2.play();
         }
+    }
+
+    public Rectangle getBounds() {
+        return bounds;
     }
 }

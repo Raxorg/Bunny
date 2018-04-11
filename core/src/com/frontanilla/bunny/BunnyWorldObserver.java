@@ -2,7 +2,7 @@ package com.frontanilla.bunny;
 
 import com.badlogic.gdx.Gdx;
 import com.frontanilla.bunny.entities.Carrot;
-import com.frontanilla.bunny.helpers.CollisionDetector;
+import com.frontanilla.bunny.entities.RainElement;
 import com.frontanilla.bunny.helpers.Constants;
 
 import java.util.Random;
@@ -10,24 +10,29 @@ import java.util.Random;
 public class BunnyWorldObserver {
 
     private BunnyWorldStuff stuff;
-    private CollisionDetector collisionDetector;
     private int score;
     private Random random;
 
     public BunnyWorldObserver(BunnyWorldStuff stuff) {
         this.stuff = stuff;
-        collisionDetector = new CollisionDetector();
-        collisionDetector.updateBunny(stuff.getBunny());
-        collisionDetector.updateCarrots(stuff.getCarrots());
         score = 0;
         random = new Random();
     }
 
     public void update() {
+        updateEntities();
+        checkCarrots();
+        checkMeteorites();
+    }
+
+    private void updateEntities() {
         stuff.getBunny().update();
         for (Carrot c : stuff.getCarrots()) {
             c.update();
         }
+    }
+
+    private void checkCarrots() {
         stuff.getCarrots().begin();
         for (Carrot c : stuff.getCarrots()) {
             if (stuff.getBunny().collides(c)) {
@@ -37,6 +42,18 @@ public class BunnyWorldObserver {
             }
         }
         stuff.getCarrots().end();
+    }
+
+    private void checkMeteorites() {
+        stuff.getMeteoriteRain().getRainElements().begin();
+        for (RainElement meteorite : stuff.getMeteoriteRain().getRainElements()) {
+            if(stuff.getBunny().getBounds().overlaps(meteorite.getCollisionBox())) {
+                stuff.getMeteoriteRain().getRainElements().removeValue(meteorite,true);
+                stuff.damage();
+                break;
+            }
+        }
+        stuff.getMeteoriteRain().getRainElements().end();
     }
 
     public void dispose() {
@@ -52,7 +69,6 @@ public class BunnyWorldObserver {
                 random.nextFloat() * (Gdx.graphics.getWidth() - 14 * 5),
                 Constants.GROUND_HEIGHT - 6.5f * 5
         ));
-        collisionDetector.updateCarrots(stuff.getCarrots());
     }
 
     public void aDown() {

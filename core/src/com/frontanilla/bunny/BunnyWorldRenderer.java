@@ -14,6 +14,7 @@ public class BunnyWorldRenderer {
     private SpriteBatch batch;
     private Texture pixel, ground;
     private BitmapFont font;
+    private float time, redScreenAlpha;
 
     public BunnyWorldRenderer(BunnyWorldStuff stuff) {
         this.stuff = stuff;
@@ -37,7 +38,24 @@ public class BunnyWorldRenderer {
         renderCarrots();
         renderScore();
 
+        renderRedScreen();
+
         batch.end();
+    }
+
+    private void renderRedScreen() {
+        redScreenAlpha -= Gdx.graphics.getDeltaTime();
+        if(redScreenAlpha < 0) {
+            redScreenAlpha = 0;
+        }
+        batch.setColor(1, 0, 0, redScreenAlpha);
+        batch.draw(
+                pixel,
+                0,
+                0,
+                Gdx.graphics.getWidth(),
+                Gdx.graphics.getHeight()
+        );
     }
 
     private void renderScore() {
@@ -81,5 +99,10 @@ public class BunnyWorldRenderer {
 
     public void dispose() {
         batch.dispose();
+    }
+
+    public void redScreen() {
+        redScreenAlpha = 1;
+        time = 1;
     }
 }

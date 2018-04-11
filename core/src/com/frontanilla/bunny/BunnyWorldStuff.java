@@ -14,6 +14,8 @@ import com.frontanilla.bunny.hud.Lives;
 
 public class BunnyWorldStuff extends Game {
 
+    // USAR COMIC SANS MS
+
     private BunnyWorldObserver observer;
     private BunnyWorldRenderer renderer;
     private DelayedRemovalArray<Carrot> carrots;
@@ -29,8 +31,8 @@ public class BunnyWorldStuff extends Game {
         Gdx.input.setInputProcessor(new InputManager(this));
 
         bunny = new Bunny(100, 300);
-        waterRain = new Rain(10, 30, 0.5f, new Texture(Gdx.files.internal("drop.png")));
-        meteoriteRain = new Rain(30, 60, 0, new Texture(Gdx.files.internal("meteorite.png")));
+        waterRain = new Rain(10, 30, 0.5f, new Texture(Gdx.files.internal("drop.png")), 300);
+        meteoriteRain = new Rain(30, 60, 0, new Texture(Gdx.files.internal("meteorite.png")), 100);
         lives = new Lives();
 
         observer = new BunnyWorldObserver(this);
@@ -98,5 +100,17 @@ public class BunnyWorldStuff extends Game {
 
     public DelayedRemovalArray<Carrot> getCarrots() {
         return carrots;
+    }
+
+    public void gameOver() {
+        // TODO
+    }
+
+    public void damage() {
+        lives.damage();
+        if(lives.getQuantity() == 0) {
+            gameOver();
+        }
+        renderer.redScreen();
     }
 }
