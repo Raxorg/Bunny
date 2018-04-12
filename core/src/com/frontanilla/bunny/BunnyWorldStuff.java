@@ -37,8 +37,6 @@ public class BunnyWorldStuff extends Game {
         waterRain = new Rain(10, 30, 0.5f, new Texture(Gdx.files.internal("drop.png")), 300);
         meteoriteRain = new Rain(30, 60, 0, new Texture(Gdx.files.internal("meteorite.png")), 100);
         lives = new Lives();
-
-        observer.init();
     }
 
     @Override

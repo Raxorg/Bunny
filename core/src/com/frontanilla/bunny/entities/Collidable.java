@@ -17,4 +17,8 @@ public abstract class Collidable {
     public boolean collides(Collidable other) {
         return bounds.overlaps(other.bounds);
     }
+
+    public Rectangle getBounds() {
+        return bounds;
+    }
 }
