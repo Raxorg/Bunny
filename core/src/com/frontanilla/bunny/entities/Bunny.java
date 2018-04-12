@@ -18,13 +18,14 @@ public class Bunny extends Collidable {
     private Vector2 velocity;
     private boolean jumping, aPressed, dPressed, facingLeft;
     private Animation<Texture> animation;
+    private Texture idle;
     private float time;
     private Sound eatCarrot1, eatCarrot2;
 
     public Bunny() {
         super(
                 new Rectangle(0, 0, 50, 50),
-                new Texture(Gdx.files.internal("bunny2.png"))
+                new Texture("bunny/bunny_jump_3.png")
         );
         velocity = new Vector2();
         jumping = false;
@@ -33,7 +34,7 @@ public class Bunny extends Collidable {
     public Bunny(float x, float y) {
         super(
                 new Rectangle((int) x, (int) y, 50, 50),
-                new Texture(Gdx.files.internal("bunny2.png"))
+                new Texture("bunny/bunny_jump_3.png")
         );
         this.x = x;
         this.y = y;
@@ -41,6 +42,7 @@ public class Bunny extends Collidable {
         jumping = true;
         eatCarrot1 = Gdx.audio.newSound(Gdx.files.internal("bunny/carrot1.mp3"));
         eatCarrot2 = Gdx.audio.newSound(Gdx.files.internal("bunny/carrot2.mp3"));
+        idle = new Texture("bunny/bunny_jump_3.png");
         createAnimation();
     }
 
@@ -85,14 +87,14 @@ public class Bunny extends Collidable {
         batch.setColor(Color.WHITE);
         Texture currentFrame = animation.getKeyFrame(time, true);
         if (velocity.x == 0) {
-            currentFrame = animation.getKeyFrame(0, true);
+            currentFrame = idle;
         }
         batch.draw(
                 currentFrame,
                 x,
                 y,
-                texture.getWidth() / 2,
-                texture.getHeight() / 2,
+                currentFrame.getWidth() / 2,
+                currentFrame.getHeight() / 2,
                 50,
                 50,
                 1,
@@ -100,8 +102,8 @@ public class Bunny extends Collidable {
                 0,
                 0,
                 0,
-                texture.getWidth(),
-                texture.getHeight(),
+                currentFrame.getWidth(),
+                currentFrame.getHeight(),
                 facingLeft,
                 false
         );
@@ -160,9 +162,5 @@ public class Bunny extends Collidable {
         } else {
             eatCarrot2.play();
         }
-    }
-
-    public Rectangle getBounds() {
-        return bounds;
     }
 }
