@@ -1,4 +1,4 @@
-package com.frontanilla.bunny;
+package com.frontanilla.bunny.screens.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -8,15 +8,15 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.frontanilla.bunny.entities.Carrot;
 import com.frontanilla.bunny.helpers.Constants;
 
-public class BunnyWorldRenderer {
+public class GameRenderer {
 
-    private BunnyWorldStuff stuff;
+    private GameStuff stuff;
     private SpriteBatch batch;
     private Texture pixel, ground;
     private BitmapFont font;
     private float time, redScreenAlpha;
 
-    public BunnyWorldRenderer(BunnyWorldStuff stuff) {
+    public GameRenderer(GameStuff stuff) {
         this.stuff = stuff;
         batch = new SpriteBatch();
         pixel = new Texture("pixel.jpg");

@@ -1,32 +1,34 @@
-package com.frontanilla.bunny;
+package com.frontanilla.bunny.screens.game;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.DelayedRemovalArray;
+import com.frontanilla.bunny.BunnyGame;
 import com.frontanilla.bunny.effects.Rain;
 import com.frontanilla.bunny.entities.Bunny;
 import com.frontanilla.bunny.entities.Carrot;
 import com.frontanilla.bunny.helpers.Constants;
 import com.frontanilla.bunny.helpers.InputManager;
 import com.frontanilla.bunny.hud.Lives;
+import com.frontanilla.bunny.screens.gameover.GameOverStuff;
 
-public class BunnyWorldStuff extends Game {
+public class GameStuff extends ScreenAdapter {
 
     // USAR COMIC SANS MS
-
-    private BunnyWorldObserver observer;
-    private BunnyWorldRenderer renderer;
+    private BunnyGame game;
+    private GameObserver observer;
+    private GameRenderer renderer;
     private DelayedRemovalArray<Carrot> carrots;
     private Bunny bunny;
     private Rain waterRain, meteoriteRain;
     private Lives lives;
 
-    @Override
-    public void create() {
-        observer = new BunnyWorldObserver(this);
-        renderer = new BunnyWorldRenderer(this);
+    public GameStuff(BunnyGame game) {
+        this.game = game;
+        observer = new GameObserver(this);
+        renderer = new GameRenderer(this);
 
         carrots = new DelayedRemovalArray<>();
         Constants.init();
@@ -40,7 +42,7 @@ public class BunnyWorldStuff extends Game {
     }
 
     @Override
-    public void render() {
+    public void render(float delta) {
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -103,7 +105,7 @@ public class BunnyWorldStuff extends Game {
     }
 
     public void gameOver() {
-        // TODO
+        game.setScreen(new GameOverStuff());
     }
 
     public void damage() {

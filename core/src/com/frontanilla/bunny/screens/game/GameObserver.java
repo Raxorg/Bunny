@@ -1,4 +1,4 @@
-package com.frontanilla.bunny;
+package com.frontanilla.bunny.screens.game;
 
 import com.badlogic.gdx.Gdx;
 import com.frontanilla.bunny.entities.Carrot;
@@ -7,13 +7,13 @@ import com.frontanilla.bunny.helpers.Constants;
 
 import java.util.Random;
 
-public class BunnyWorldObserver {
+public class GameObserver {
 
-    private BunnyWorldStuff stuff;
+    private GameStuff stuff;
     private int score;
     private Random random;
 
-    public BunnyWorldObserver(BunnyWorldStuff stuff) {
+    public GameObserver(GameStuff stuff) {
         this.stuff = stuff;
         score = 0;
         random = new Random();
