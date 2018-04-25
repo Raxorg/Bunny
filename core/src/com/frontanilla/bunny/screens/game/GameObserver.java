@@ -30,6 +30,8 @@ public class GameObserver {
         for (Carrot c : stuff.getCarrots()) {
             c.update();
         }
+        stuff.getMeteoriteRain().update();
+        stuff.getWaterRain().update();
     }
 
     private void checkCarrots() {

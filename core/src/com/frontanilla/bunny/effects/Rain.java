@@ -32,9 +32,14 @@ public class Rain {
         }
     }
 
-    public void render(SpriteBatch batch) {
+    public void update() {
         for (RainElement d : rainElements) {
             d.update();
+        }
+    }
+
+    public void render(SpriteBatch batch) {
+        for (RainElement d : rainElements) {
             d.render(batch);
         }
     }

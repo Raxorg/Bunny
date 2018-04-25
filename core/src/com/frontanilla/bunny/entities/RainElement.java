@@ -31,7 +31,7 @@ public class RainElement extends Collidable {
     public void update() {
         if (bounds.x + bounds.width < 0 || bounds.y + bounds.height < 0) {
             bounds.set(
-                    random.nextInt(Gdx.graphics.getWidth()) + Gdx.graphics.getWidth() * 4 * xModifier,
+                    random.nextInt((int) (Gdx.graphics.getWidth() + Gdx.graphics.getWidth() * xModifier)),
                     Gdx.graphics.getHeight(),
                     xSize,
                     ySize
