@@ -3,7 +3,6 @@ package com.frontanilla.bunny.desktop;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.frontanilla.bunny.BunnyGame;
-import com.frontanilla.bunny.screens.game.GameStuff;
 
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
